@@ -4,28 +4,17 @@ import { BiBookReader } from 'react-icons/bi';
 import { MdSettingsSystemDaydream } from 'react-icons/md';
 import { useAuthContext } from '../context/authContext';
 import Profile from '../buttons/Profile';
-import { useState, useRef, useEffect } from 'react';
-import Auth from '../pages/Auth';
+import { useState, useRef } from 'react';
+import Auth from '../components/Auth';
 
 function Header() {
   const { user } = useAuthContext();
   const [button, setButton] = useState(false);
-  const [clickedOutside, setClickedOutside] = useState(false);
   const myRef = useRef();
-  const handleClickOutside = (e) => {
-    if (!myRef.current.contains(e.target)) {
-      setClickedOutside(true);
-    }
-  };
+
   const handleClickInside = () => {
-    setClickedOutside(false);
     setButton(!button);
   };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  });
 
   return (
     <div className='sticky z-10 top-0 h-14 bg-white w-full flex justify-center border-b-2'>
@@ -55,7 +44,7 @@ function Header() {
             </div>
             <span className='w-8 border-l-8 border-b-8 border-background rotate-[45deg]'></span>
             <div className='flex items-center'>
-              {user ? (
+              {!user ? (
                 <div className='relative'>
                   <button
                     onClick={handleClickInside}
@@ -66,7 +55,7 @@ function Header() {
                       Giriş Yap
                     </span>
                   </button>
-                  {button && !clickedOutside && <Auth />}
+                  {button && <Auth />}
                 </div>
               ) : (
                 <Profile />

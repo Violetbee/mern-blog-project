@@ -1,15 +1,18 @@
+import { useEffect } from 'react';
 import { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const initialState = {
-    name: 'Çağlar',
-    surName: 'Karahüseyin',
-    email: 'caglarkarahuseyin28@gmail.com',
-    phoneNumber: '05999999999',
-  };
-  const [user, setUser] = useState(initialState);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    user && localStorage.setItem('user', JSON.stringify(user));
+    if (localStorage.getItem('user') && !user) {
+      setUser(JSON.parse(localStorage.getItem('user')));
+    }
+  }, [user]);
+
   const values = { user, setUser };
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };

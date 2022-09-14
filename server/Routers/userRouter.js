@@ -10,13 +10,14 @@ router.get('/', (req, res) => {
 
 router.post('/signup', async (req, res) => {
   try {
-    const { fullName, password, phoneNumber, email } = req.body;
+    const { fullName, username, password, phoneNumber, email } = req.body;
     const userExists = await User.findOne({ email });
     if (userExists) return res.status(400).json({ msg: 'User already exists' });
     const hashedPassword = await bcrypt.hash(password, 10);
     const createdUser = await User.create({
       fullName,
       email,
+      username,
       password: hashedPassword,
       phoneNumber,
     });
@@ -27,13 +28,13 @@ router.post('/signup', async (req, res) => {
 });
 
 router.post('/signin', async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
+  const { username, password } = req.body;
+  const user = await User.findOne({ username });
   if (!user) return res.status(400).json({ msg: 'User does not exist.' });
   const isPasswordCorrect = await bcrypt.compare(password, user.password);
   if (!isPasswordCorrect)
     return res.status(400).json({ msg: 'Wrong password' });
-  return res.status(200).json(user, { msg: 'Authentication successful' });
+  return res.status(200).json(user);
 });
 
 export default router;

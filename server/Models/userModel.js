@@ -9,6 +9,10 @@ const UserModel = mongoose.Schema({
     type: mongoose.SchemaTypes.String,
     required: true,
   },
+  username: {
+    type: mongoose.SchemaTypes.String,
+    required: true,
+  },
   password: {
     type: mongoose.SchemaTypes.String,
     required: true,
