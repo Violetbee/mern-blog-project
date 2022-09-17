@@ -6,7 +6,7 @@ function App() {
   return (
     // FullBody
 
-    <div className='w-full flex flex-col gap-6 bg-background min-h-screen font-sans-pro'>
+    <div className='mx-auto min-h-screen flex flex-col gap-6 bg-background font-sans-pro'>
       <Header />
       <Router>
         <Routes>

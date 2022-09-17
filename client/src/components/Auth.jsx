@@ -3,17 +3,16 @@ import { login } from '../axios';
 import { useAuthContext } from '../context/authContext';
 
 function Auth() {
-  const { user, setUser } = useAuthContext();
+  const { setUser } = useAuthContext();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
   const handleForm = (e) => {
     e.preventDefault();
-    console.log(formData);
     login(formData)
       .then((res) => {
-        setUser(res.data);
+        setUser(res.data.user);
       })
       .catch((e) => {
         console.log(e.response.data.msg);

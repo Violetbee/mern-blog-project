@@ -1,40 +1,20 @@
 import { Router } from 'express';
-import User from '../Models/userModel.js';
-import bcrypt from 'bcryptjs';
+import { upload } from '../Middlewares/imgUpload.js';
+import {
+  signUp,
+  signIn,
+  getUsers,
+  logout,
+} from '../Controllers/userController.js';
 
 const router = Router();
 
-router.get('/', (req, res) => {
-  res.send('this is users page');
-});
+router.get('/', getUsers);
 
-router.post('/signup', async (req, res) => {
-  try {
-    const { fullName, username, password, phoneNumber, email } = req.body;
-    const userExists = await User.findOne({ email });
-    if (userExists) return res.status(400).json({ msg: 'User already exists' });
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const createdUser = await User.create({
-      fullName,
-      email,
-      username,
-      password: hashedPassword,
-      phoneNumber,
-    });
-    return res.status(201).send(createdUser);
-  } catch (e) {
-    console.log(e);
-  }
-});
+router.post('/signup', upload, signUp);
 
-router.post('/signin', async (req, res) => {
-  const { username, password } = req.body;
-  const user = await User.findOne({ username });
-  if (!user) return res.status(400).json({ msg: 'User does not exist.' });
-  const isPasswordCorrect = await bcrypt.compare(password, user.password);
-  if (!isPasswordCorrect)
-    return res.status(400).json({ msg: 'Wrong password' });
-  return res.status(200).json(user);
-});
+router.post('/signin', signIn);
+
+router.post('/logout', logout);
 
 export default router;

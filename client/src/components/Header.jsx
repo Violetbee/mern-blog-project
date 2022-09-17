@@ -3,14 +3,13 @@ import { ImHome } from 'react-icons/im';
 import { BiBookReader } from 'react-icons/bi';
 import { MdSettingsSystemDaydream } from 'react-icons/md';
 import { useAuthContext } from '../context/authContext';
-import Profile from '../buttons/Profile';
-import { useState, useRef } from 'react';
+import Profile from '../components/Profile';
+import { useState } from 'react';
 import Auth from '../components/Auth';
 
 function Header() {
   const { user } = useAuthContext();
   const [button, setButton] = useState(false);
-  const myRef = useRef();
 
   const handleClickInside = () => {
     setButton(!button);
@@ -48,7 +47,6 @@ function Header() {
                 <div className='relative'>
                   <button
                     onClick={handleClickInside}
-                    ref={myRef}
                     className='relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 dark:text-white dark:hover:text-gray-900'
                   >
                     <span className='relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0'>

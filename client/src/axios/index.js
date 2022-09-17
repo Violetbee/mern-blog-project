@@ -6,3 +6,9 @@ const HTTP = axios.create({
 
 export const login = async (formData) =>
   await HTTP.post('/users/signin', formData);
+
+export const getPosts = async () => await HTTP.get('/posts');
+
+export const logout = async () => {
+  await HTTP.post('/logout');
+};

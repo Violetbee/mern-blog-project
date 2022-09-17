@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Post from 'mongoose';
 
 const UserModel = mongoose.Schema({
   fullName: {
@@ -25,6 +26,16 @@ const UserModel = mongoose.Schema({
     type: mongoose.SchemaTypes.String,
     enum: ['USER', 'ADMIN'],
     default: 'USER',
+  },
+  avatar: {
+    data: mongoose.SchemaTypes.String,
+    contentType: mongoose.SchemaTypes.String,
+  },
+  posts: {
+    type: mongoose.SchemaTypes.Array,
+  },
+  comments: {
+    type: mongoose.SchemaTypes.Array,
   },
 });
 
