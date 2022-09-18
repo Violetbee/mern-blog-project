@@ -25,7 +25,7 @@ app.use('/users', UserRouter);
 app.use('/users/uploads', express.static('uploads'));
 app.use('/posts', PostRouter);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
   mongoose

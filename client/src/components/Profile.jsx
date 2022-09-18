@@ -7,7 +7,7 @@ function Profile() {
     <div className='flex items-center gap-2'>
       <img
         className='rounded-full w-10'
-        src={`http://localhost:5000/users/uploads/${user.avatar.data}`}
+        src={`http://localhost:5001/users/uploads/${user.avatar.data}`}
         alt=''
       />
       <div className='flex flex-col'>

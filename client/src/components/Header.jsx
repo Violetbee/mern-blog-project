@@ -5,14 +5,15 @@ import { MdSettingsSystemDaydream } from 'react-icons/md';
 import { useAuthContext } from '../context/authContext';
 import Profile from '../components/Profile';
 import { useState } from 'react';
-import Auth from '../components/Auth';
+import Login from '../components/Login';
+import { Link } from 'react-router-dom';
 
 function Header() {
   const { user } = useAuthContext();
-  const [button, setButton] = useState(false);
+  const [loginHandle, setLoginHandle] = useState(false);
 
   const handleClickInside = () => {
-    setButton(!button);
+    setLoginHandle(!loginHandle);
   };
 
   return (
@@ -28,14 +29,20 @@ function Header() {
           {/* Right Menu */}
           <div className='flex space-x-2'>
             <div className='flex gap-5 mr-8'>
-              <div className='flex flex-col items-center justify-center border-t-[5px]  border-primary'>
+              <Link
+                to='/'
+                className='flex flex-col items-center justify-center border-t-[5px]  border-primary'
+              >
                 <ImHome className='text-primary text-lg' />
                 <span>Anasayfa</span>
-              </div>
-              <div className='flex flex-col items-center justify-center border-t-[5px] border-white hover:border-primary duration-200'>
+              </Link>
+              <Link
+                to='/register'
+                className='flex flex-col items-center justify-center border-t-[5px] border-white hover:border-primary duration-200'
+              >
                 <MdSettingsSystemDaydream className='text-primary text-lg' />
                 <span>Günlük</span>
-              </div>
+              </Link>
               <div className='flex flex-col items-center justify-center border-t-[5px] border-white hover:border-primary duration-200'>
                 <BiBookReader className='text-primary text-lg' />
                 <span>İletişim</span>
@@ -53,7 +60,7 @@ function Header() {
                       Giriş Yap
                     </span>
                   </button>
-                  {button && <Auth />}
+                  {loginHandle && <Login />}
                 </div>
               ) : (
                 <Profile />

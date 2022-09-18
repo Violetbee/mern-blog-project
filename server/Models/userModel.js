@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import Post from 'mongoose';
 
 const UserModel = mongoose.Schema({
   fullName: {

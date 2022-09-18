@@ -3,3 +3,9 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;400;600;700;900&display=swap');
+
+@layer components {
+  .contentBackground {
+    @apply bg-white border-[1px] rounded-md p-5 gap-2;
+  }
+}
