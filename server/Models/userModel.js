@@ -19,7 +19,6 @@ const UserModel = mongoose.Schema({
   },
   phoneNumber: {
     type: mongoose.SchemaTypes.String,
-    required: true,
   },
   userType: {
     type: mongoose.SchemaTypes.String,

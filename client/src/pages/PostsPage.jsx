@@ -16,6 +16,7 @@ function PostsPage() {
       {posts.map((post) => {
         return (
           <Post
+            key={post._id}
             author={post.authorName}
             title={post.title}
             content={post.content}

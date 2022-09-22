@@ -12,3 +12,6 @@ export const getPosts = async () => await HTTP.get('/posts');
 export const logout = async () => {
   await HTTP.post('/logout');
 };
+
+export const signUp = async (formData) =>
+  await HTTP.post('/users/signup', formData);
