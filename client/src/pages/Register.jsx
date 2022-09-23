@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { signUp } from '../axios/index';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -8,7 +9,9 @@ function Register() {
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [image, setImage] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const onChangeFile = (e) => {
     setImage(e.target.files[0]);
@@ -26,6 +29,10 @@ function Register() {
     signUp(formData).then((res) => {
       console.log(res.data);
     });
+    setLoading(!loading);
+    setTimeout(() => {
+      navigate('/');
+    }, 3000);
   };
 
   return (

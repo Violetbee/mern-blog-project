@@ -1,5 +1,6 @@
 import User from '../Models/userModel.js';
 import bcrypt from 'bcryptjs';
+import path from 'path';
 
 export const signUp = async (req, res) => {
   try {
@@ -17,10 +18,16 @@ export const signUp = async (req, res) => {
       username,
       password: hashedPassword,
       phoneNumber,
-      avatar: {
-        data: req.file.filename,
-        contentType: req.file.mimetype,
-      },
+      avatar:
+        req.file.filename !== 'undefined'
+          ? {
+              data: req.file.filename,
+              contentType: req.file.mimetype,
+            }
+          : {
+              data: path.basename('../uploads/avatar.png'),
+              contentType: path.extname('../uploads/avatar.png'),
+            },
     });
     return res.status(201).send(createdUser);
   } catch (e) {

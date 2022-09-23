@@ -4,16 +4,21 @@ import { getPosts } from '../axios';
 
 function PostsPage() {
   const [posts, setPosts] = useState([]);
+
   useEffect(() => {
-    getPosts()
-      .then((res) => setPosts(res.data))
-      .catch((e) => {
-        console.log(e);
-      });
-  }, [posts]);
+    const es = new EventSource('http://localhost:5001/posts/stream');
+    es.onmessage = (e) => {
+      setPosts(JSON.parse(e.data));
+    };
+
+    es.addEventListener('close', (e) => {
+      console.log(e.data);
+    });
+  }, []);
+
   return (
     <>
-      {posts.map((post) => {
+      {posts?.map((post) => {
         return (
           <Post
             key={post._id}

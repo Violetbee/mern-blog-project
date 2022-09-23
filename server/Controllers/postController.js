@@ -3,8 +3,17 @@ import User from '../Models/userModel.js';
 
 export const getPosts = async (req, res) => {
   try {
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Connection', 'keep-alive');
+    res.flushHeaders();
     const posts = await Post.find();
-    res.status(200).json(posts.reverse());
+    res.write(`data: ${JSON.stringify(posts.reverse())}\n\n`);
+    res.on('close', () => {
+      console.log('client dropped me');
+      res.end();
+    });
   } catch (e) {
     res.status(404).json({ msg: e.message });
   }
