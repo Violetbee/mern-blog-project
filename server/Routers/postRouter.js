@@ -9,7 +9,7 @@ import {
 
 const router = Router();
 
-router.get('/stream', getPosts);
+router.get('/', getPosts);
 
 router.post('/create', checkAuth, newPost);
 

@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { upload } from '../Middlewares/imgUpload.js';
+import auth from '../Middlewares/auth.js';
 import {
   signUp,
   signIn,

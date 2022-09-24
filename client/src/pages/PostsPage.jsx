@@ -1,24 +1,22 @@
 import Post from '../components/Post';
 import { useEffect, useState } from 'react';
 import { getPosts } from '../axios';
+import SendPost from '../components/SendPost';
+import { useAuthContext } from '../context/authContext';
 
 function PostsPage() {
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    const es = new EventSource('http://localhost:5001/posts/stream');
-    es.onmessage = (e) => {
-      setPosts(JSON.parse(e.data));
-    };
+  const { user } = useAuthContext();
 
-    es.addEventListener('close', (e) => {
-      console.log(e.data);
-    });
+  useEffect(() => {
+    getPosts().then((res) => setPosts(res.data));
   }, []);
 
   return (
     <>
-      {posts?.map((post) => {
+      {user && <SendPost />}
+      {posts.map((post) => {
         return (
           <Post
             key={post._id}

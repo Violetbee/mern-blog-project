@@ -6,8 +6,11 @@ export const signUp = async (req, res) => {
   try {
     const { fullName, username, password, phoneNumber, email } = req.body;
 
-    const userExists = await User.findOne({ email, username });
-    if (userExists) return res.status(400).json({ msg: 'User already exists' });
+    const userExists = await User.findOne({ $or: [{ email }, { username }] });
+    if (userExists)
+      return res
+        .status(400)
+        .json({ msg: 'Böyle bir mail veya kullanıcı adı ile üyelik mevcut.' });
     const hashedPassword = await bcrypt.hash(password, 10);
 
     if (!req.file) res.status(400).json({ msg: 'The image is not exist' });
@@ -61,7 +64,9 @@ export const signIn = async (req, res) => {
 
 export const logout = async (req, res) => {
   if (req.session.user) {
-    req.session.destroy();
+    req.session.destroy(() => {
+      console.log('session is destroyed');
+    });
     res.status(201).json({ msg: 'Successfully logged out' });
   } else {
     res.status(400).json({ msg: 'You are already logged out' });

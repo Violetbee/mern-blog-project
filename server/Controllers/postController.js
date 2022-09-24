@@ -3,16 +3,12 @@ import User from '../Models/userModel.js';
 
 export const getPosts = async (req, res) => {
   try {
-    res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('Content-Type', 'text/event-stream');
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Connection', 'keep-alive');
-    res.flushHeaders();
     const posts = await Post.find();
-    res.write(`data: ${JSON.stringify(posts.reverse())}\n\n`);
+    const reversedPosts = posts.reverse();
+    res.status(200).json(reversedPosts);
+
     res.on('close', () => {
       console.log('client dropped me');
-      res.end();
     });
   } catch (e) {
     res.status(404).json({ msg: e.message });
@@ -32,7 +28,7 @@ export const newPost = async (req, res) => {
       },
       (err, post) => {
         if (err) res.status(400).json({ msg: err.message });
-        User.findById(req.body.authorId, (err, user) => {
+        User.findById(req.session.user.user._id, (err, user) => {
           if (err) {
             res.status(400).json({ msg: 'AuthorId is not correct' });
           } else {

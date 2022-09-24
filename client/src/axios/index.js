@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const HTTP = axios.create({
-  baseURL: 'http://localhost:5001',
+  baseURL: '/api',
 });
 
 export const login = async (formData) =>
@@ -9,8 +9,11 @@ export const login = async (formData) =>
 
 export const getPosts = async () => await HTTP.get('/posts');
 
+export const sendPost = async (formData) =>
+  await HTTP.post('/posts/create', formData);
+
 export const logout = async () => {
-  await HTTP.post('/logout');
+  await HTTP.post('/users/logout');
 };
 
 export const signUp = async (formData) =>

@@ -26,9 +26,13 @@ function Register() {
     formData.append('password', password);
     formData.append('phoneNumber', phoneNumber);
     formData.append('image', image);
-    signUp(formData).then((res) => {
-      console.log(res.data);
-    });
+    signUp(formData)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((e) => {
+        console.log(e.response.data);
+      });
     setLoading(!loading);
     setTimeout(() => {
       navigate('/');

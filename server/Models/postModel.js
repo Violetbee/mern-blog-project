@@ -25,8 +25,8 @@ const PostModel = mongoose.Schema({
     default: new Date(),
   },
   timestamp: {
-    type: mongoose.SchemaTypes.String,
-    default: Date.now(),
+    type: mongoose.SchemaTypes.Number,
+    default: Date.now,
   },
 });
 
