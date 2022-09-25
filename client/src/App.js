@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import PostsPage from './pages/PostsPage';
 import Contact from './pages/Contact';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -17,7 +18,14 @@ function App() {
             <Route path='/' element={<PostsPage />} />
             <Route path='post/:id' element={'Single Post'} />
             <Route path='/contact' element={<Contact />} />
-            <Route path='/register' element={<Register />} />
+            <Route
+              path='/register'
+              element={
+                <ProtectedRoute>
+                  <Register />
+                </ProtectedRoute>
+              }
+            />
           </Route>
         </Routes>
       </div>
