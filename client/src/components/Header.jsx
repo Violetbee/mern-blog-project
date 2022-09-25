@@ -6,7 +6,7 @@ import { useAuthContext } from '../context/authContext';
 import Profile from '../components/Profile';
 import { useState } from 'react';
 import Login from '../components/Login';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function Header() {
   const { user } = useAuthContext();
@@ -29,24 +29,36 @@ function Header() {
           {/* Right Menu */}
           <div className='flex space-x-2'>
             <div className='flex gap-5 mr-8'>
-              <Link
+              <NavLink
                 to='/'
-                className='flex flex-col items-center justify-center border-t-[5px]  border-primary'
+                className={({ isActive }) =>
+                  isActive ? 'menuActive' : 'menuInActive'
+                }
               >
                 <ImHome className='text-primary text-lg' />
                 <span>Anasayfa</span>
-              </Link>
-              <Link
-                to='/register'
-                className='flex flex-col items-center justify-center border-t-[5px] border-white hover:border-primary duration-200'
+              </NavLink>
+
+              <NavLink
+                to='/contact'
+                className={({ isActive }) =>
+                  isActive ? 'menuActive' : 'menuInActive'
+                }
               >
-                <MdSettingsSystemDaydream className='text-primary text-lg' />
-                <span>Günlük</span>
-              </Link>
-              <div className='flex flex-col items-center justify-center border-t-[5px] border-white hover:border-primary duration-200'>
                 <BiBookReader className='text-primary text-lg' />
                 <span>İletişim</span>
-              </div>
+              </NavLink>
+              {!user && (
+                <NavLink
+                  to='/register'
+                  className={({ isActive }) =>
+                    isActive ? 'menuActive' : 'menuInActive'
+                  }
+                >
+                  <MdSettingsSystemDaydream className='text-primary text-lg' />
+                  <span>Kayıt Ol</span>
+                </NavLink>
+              )}
             </div>
             <span className='w-8 border-l-8 border-b-8 border-background rotate-[45deg]'></span>
             <div className='flex items-center'>

@@ -13,6 +13,10 @@ const PostModel = mongoose.Schema({
     type: mongoose.SchemaTypes.String,
     required: true,
   },
+  username: {
+    type: mongoose.SchemaTypes.String,
+    required: true,
+  },
   content: {
     type: mongoose.SchemaTypes.String,
     required: true,

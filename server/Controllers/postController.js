@@ -17,11 +17,12 @@ export const getPosts = async (req, res) => {
 
 export const newPost = async (req, res) => {
   try {
-    const { title, content, tags, authorId, authorName } = req.body;
+    const { title, content, tags, authorId, authorName, username } = req.body;
     await Post.create(
       {
         authorId,
         authorName,
+        username,
         title,
         content,
         tags,

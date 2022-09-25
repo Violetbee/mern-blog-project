@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { sendPost } from '../axios';
 import { useAuthContext } from '../context/authContext';
 
-function SendPost() {
+function SendPost({ setSinglePost }) {
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -10,15 +10,16 @@ function SendPost() {
     content: '',
     authorId: user._id,
     authorName: user.fullName,
+    username: user.username,
   });
-
   const handleSubmit = (e) => {
-    setLoading(!loading);
+    setLoading(true);
     e.preventDefault();
+    setSinglePost(formData);
     sendPost(formData);
     setTimeout(() => {
-      setLoading(loading);
-      window.location.reload();
+      setLoading(false);
+      setFormData({ ...formData, title: '', content: '' });
     }, 2000);
   };
   return (

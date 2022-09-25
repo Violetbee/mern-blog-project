@@ -8,4 +8,10 @@
   .contentBackground {
     @apply bg-white border-[1px] rounded-md p-5 gap-2;
   }
+  .menuActive {
+    @apply border-t-[5px]  border-primary flex flex-col items-center justify-center;
+  }
+  .menuInActive {
+    @apply flex flex-col items-center justify-center border-t-[5px] border-white;
+  }
 }
