@@ -18,3 +18,6 @@ export const logout = async () => {
 
 export const signUp = async (formData) =>
   await HTTP.post('/users/signup', formData);
+
+export const likePost = async (formData) =>
+  await HTTP.post('/posts/like', formData);

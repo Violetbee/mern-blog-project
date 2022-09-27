@@ -27,8 +27,11 @@ function PostsPage() {
       {posts.map((post) => {
         return (
           <Post
+            likes={post.likes}
             key={post._id}
+            postId={post._id}
             author={post.authorName}
+            authorId={post.authorId}
             username={post.username}
             title={post.title}
             content={post.content}

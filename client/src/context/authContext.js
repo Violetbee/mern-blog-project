@@ -5,14 +5,15 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     user && localStorage.setItem('user', JSON.stringify(user));
     if (localStorage.getItem('user') && !user) {
       setUser(JSON.parse(localStorage.getItem('user')));
     }
-  }, [user]);
-  const values = { user, setUser };
+  }, [user, liked]);
+  const values = { user, setUser, liked, setLiked };
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
 
