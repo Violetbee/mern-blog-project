@@ -35,6 +35,12 @@ const UserModel = mongoose.Schema({
   comments: {
     type: mongoose.SchemaTypes.Array,
   },
+  likedPosts: {
+    type: mongoose.SchemaTypes.Array,
+  },
+  followers: {
+    type: mongoose.SchemaTypes.Array,
+  },
 });
 
 const User = mongoose.model('User', UserModel);

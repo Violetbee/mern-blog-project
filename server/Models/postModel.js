@@ -24,6 +24,10 @@ const PostModel = mongoose.Schema({
   tags: {
     type: mongoose.SchemaTypes.String,
   },
+  likes: {
+    type: mongoose.SchemaTypes.Number,
+    default: 0,
+  },
   createdAt: {
     type: mongoose.SchemaTypes.Date,
     default: new Date(),

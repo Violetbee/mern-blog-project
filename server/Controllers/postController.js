@@ -1,3 +1,5 @@
+import { response } from 'express';
+import mongoose from 'mongoose';
 import Post from '../Models/postModel.js';
 import User from '../Models/userModel.js';
 
@@ -12,6 +14,18 @@ export const getPosts = async (req, res) => {
     });
   } catch (e) {
     res.status(404).json({ msg: e.message });
+  }
+};
+
+export const getPostsById = async (req, res) => {
+  try {
+    if (req.params.userid) {
+      User.findById(req.params.userid, (err, user1) =>
+        err ? response.status(400).json(err) : res.status(200).json(user1.posts)
+      );
+    }
+  } catch (e) {
+    res.status(400).json({ msg: e });
   }
 };
 
@@ -46,22 +60,39 @@ export const newPost = async (req, res) => {
 };
 
 export const deletePosts = async (req, res) => {
-  if (req.body.userId === req.body.authorId) {
-    if (req.body.postId) {
-      Post.findByIdAndDelete(req.body.postId, (err) => {
-        err ? res.json(err) : res.json('Post is deleted successfully');
-      });
-      User.posts.findByIdAndDelete(req.body.postId, (err) => {
-        err ? res.json(err) : res.json('Post is deleted successfully');
-      });
-    }
-    if (req.body.userId) {
-      Post.deleteMany({ authorId: req.body.userId }, (err) => {
-        err ? res.json(err) : res.json('Posts are deleted successfully');
-      });
-      User.posts.deleteMany({ authorId: req.body.userId }, (err) => {
-        err ? res.json(err) : res.json('Posts are deleted successfully');
-      });
-    }
+  if (req.body.postId) {
+    Post.findByIdAndDelete(req.body.postId, (err) => {
+      err ? res.json(err) : res.json('Post is deleted successfully');
+    });
+    User.posts.findByIdAndDelete(req.body.postId, (err) => {
+      err ? res.json(err) : res.json('Post is deleted successfully');
+    });
+  }
+};
+
+export const handleLike = async (req, res) => {
+  try {
+    User.findById(req.session.user.user._id, (err, user) => {
+      err
+        ? res.json(err)
+        : Post.findById(req.body.postId, (err, post) => {
+            if (user.likedPosts.indexOf(req.body.postId) === -1) {
+              user.likedPosts.push(post._id);
+              post.likes++;
+              user.save();
+              post.save();
+              res.status(200).json('okey');
+            } else {
+              const index = user.likedPosts.indexOf(req.body.postId);
+              user.likedPosts.splice(index, 1);
+              post.likes--;
+              user.save();
+              post.save();
+              res.status(200).json('no');
+            }
+          });
+    });
+  } catch (e) {
+    console.log(e);
   }
 };
