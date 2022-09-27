@@ -6,7 +6,7 @@ function Profile() {
   return (
     <div className='flex items-center gap-2'>
       <img
-        className='rounded-full w-10'
+        className='rounded-full w-10 h-10 object-cover'
         src={`api/users/uploads/${user.avatar.data}`}
         alt=''
       />
