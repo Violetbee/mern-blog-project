@@ -7,10 +7,13 @@ import Profile from '../components/Profile';
 import { useState } from 'react';
 import Login from '../components/Login';
 import { NavLink } from 'react-router-dom';
+import { GoThreeBars } from 'react-icons/go';
+import { Transition } from '@tailwindui/react';
 
 function Header() {
   const { user } = useAuthContext();
   const [loginHandle, setLoginHandle] = useState(false);
+  const [toggleMobileMenu, setToggleMobileMenu] = useState(false);
 
   const handleClickInside = () => {
     setLoginHandle(!loginHandle);
@@ -26,9 +29,9 @@ function Header() {
             <GiFoldedPaper className='text-3xl text-primary' />
             <span className='text-2xl'>Blog Sayfam</span>
           </div>
-          {/* Right Menu */}
-          <div className='flex space-x-2'>
-            <div className='flex gap-5 mr-8'>
+          {/* Pc Right Menu */}
+          <div className='hidden space-x-2 md:flex'>
+            <div className='flex gap-5 mr-8 '>
               <NavLink
                 to='/'
                 className={({ isActive }) =>
@@ -78,6 +81,31 @@ function Header() {
                 <Profile />
               )}
             </div>
+          </div>
+          {/* Mobile Right Menu */}
+          <div className='flex md:hidden justify-center items-center'>
+            <GoThreeBars
+              onClick={() => setToggleMobileMenu(!toggleMobileMenu)}
+              className='text-4xl cursor-pointer'
+            />
+            <Transition
+              show={toggleMobileMenu}
+              enter='transition-opacity duration-200'
+              enterFrom='opacity-0'
+              enterTo='opacity-100'
+              leave='transition-opacity duration-200'
+              leaveFrom='opacity-100'
+              leaveTo='opacity-0'
+            >
+              <div className='h-screen w-2/3 absolute right-0 top-0 bottom-0 bg-white border-l-2 opacity-100 flex justify-end'>
+                <div className='h-14 flex items-center justify-center border-b-2 border-white mr-2'>
+                  <GoThreeBars
+                    onClick={() => setToggleMobileMenu(!toggleMobileMenu)}
+                    className='text-4xl cursor-pointer'
+                  />
+                </div>
+              </div>
+            </Transition>
           </div>
         </div>
       </div>
