@@ -10,7 +10,7 @@ import {
 
 const router = Router();
 
-router.get('/', getUsers);
+// router.get('/', getUsers);
 
 router.post('/signup', upload, signUp);
 
