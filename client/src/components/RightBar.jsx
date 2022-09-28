@@ -1,20 +1,12 @@
-import { useAuthContext } from '../context/authContext';
-import { useDesignContext } from '../context/designContext';
+import SharePostButton from './SharePostButton';
 
 function RightBar() {
-  const { setSharePost, sharePost } = useDesignContext();
-  const { user } = useAuthContext();
   return (
-    <div className='sticky z-0 top-16 duration-1000 w-2/12 h-16 space-y-2 '>
-      {user && (
-        <div
-          onClick={() => setSharePost(!sharePost)}
-          className='flex items-center justify-center border-[1px] p-2 rounded-md bg-pink text-white cursor-pointer'
-        >
-          Gönderi Paylaş
-        </div>
-      )}
-      <div className='bg-white border-[1px] h-full rounded-md'></div>
+    <div className='sticky z-0 top-16 md:w-[20%] lg:w-3/12 hidden md:block'>
+      <div className='w-full flex flex-col gap-2'>
+        <SharePostButton />
+        <div className='bg-white border-[1px] h-32 w-full rounded-md'></div>
+      </div>
     </div>
   );
 }

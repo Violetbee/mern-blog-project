@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { login } from '../axios';
 import { useAuthContext } from '../context/authContext';
 
-function Auth() {
+function Login() {
   const { setUser } = useAuthContext();
   const [formData, setFormData] = useState({
     username: '',
@@ -20,7 +20,7 @@ function Auth() {
   };
   return (
     <div className='absolute top-14 right-0'>
-      <div className='w-52 bg-white shadow-md p-4 rounded'>
+      <div className='bg-white shadow-md rounded w-52 p-4 '>
         <form onSubmit={handleForm}>
           <label htmlFor='username'>Kullanıcı Adı</label>
           <input
@@ -50,4 +50,4 @@ function Auth() {
     </div>
   );
 }
-export default Auth;
+export default Login;

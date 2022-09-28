@@ -11,7 +11,7 @@ function App() {
     // FullBody
 
     <Router>
-      <div className='mx-auto min-h-screen flex flex-col gap-6 bg-background font-sans-pro'>
+      <div className='mx-auto min-h-screen flex flex-col gap-2 md:gap-6 bg-background font-sans-pro'>
         <Header />
         <Routes>
           <Route path='/' element={<Home />}>

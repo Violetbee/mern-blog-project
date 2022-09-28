@@ -14,4 +14,10 @@
   .menuInActive {
     @apply flex flex-col items-center justify-center border-t-[5px] border-white;
   }
+  .menuMobileActive {
+    @apply border-l-[5px]  border-primary flex flex-row px-5 p-2 space-x-2 items-center justify-center;
+  }
+  .menuMobileInActive {
+    @apply flex flex-row items-center justify-center px-5 p-2 space-x-2 border-l-[5px] border-white;
+  }
 }

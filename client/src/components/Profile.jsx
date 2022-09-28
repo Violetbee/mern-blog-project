@@ -4,9 +4,9 @@ import { useAuthContext } from '../context/authContext';
 function Profile() {
   const { user, setUser } = useAuthContext();
   return (
-    <div className='flex items-center gap-2'>
+    <div className='flex flex-col md:flex-row items-center gap-2'>
       <img
-        className='rounded-full w-10 h-10 object-cover'
+        className='rounded-full  w-16 h-16 md:w-10 md:h-10 object-cover'
         src={`api/users/uploads/${user.avatar.data}`}
         alt=''
       />

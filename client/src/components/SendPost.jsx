@@ -58,7 +58,7 @@ function SendPost({ setSinglePost }) {
             onChange={(e) =>
               setFormData({ ...formData, content: e.target.value })
             }
-            placeholder='Başlık'
+            placeholder='İçerik'
           />
           <button
             className={`p-2 border-2 cursor-pointer  ${
