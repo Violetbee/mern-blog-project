@@ -28,7 +28,7 @@ function Register() {
     formData.append('image', image);
     signUp(formData)
       .then((res) => {
-        console.log('login success');
+        console.log('login is success');
       })
       .catch((e) => {
         console.log(e.response.data);
